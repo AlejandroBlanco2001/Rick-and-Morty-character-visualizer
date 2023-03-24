@@ -55,15 +55,21 @@ export default function Home() {
 
     return (
         <>
-            <header className="header">
-                <Image src={header} alt="rick-morty-shadow-image" />
+            <header className="h-16 w-full pl-5 py-1">
+                <Image 
+                className="h-full w-10" 
+                src={header} 
+                alt="rick-morty-shadow-image"/>
             </header>
             <div className="main-bar">
-                <Image src={logo} alt="rick-morty-show-logo" />
-                <div className="flex flex-col justify-center items-center">
+                <Image 
+                className="pt-10 px-5"
+                src={logo}
+                alt="rick-morty-show-logo" />
+                <div className="pt-10 flex flex-col justify-center items-center">
                     <input
                         placeholder="Filter by name..."
-                        className="filter"
+                        className="border border-gray-300 rounded-lg w-80 h-10"
                         onChange={() => {
                             dispacth({
                                 type: "SET_NAME",
@@ -74,10 +80,11 @@ export default function Home() {
                     <button>ADVANCED FILTERS</button>
                 </div>
             </div>
-            <div className="flex justify-center gap-5 lg:flex-col md:flex-row flex-wrap">
+            <div className="pt-10 flex justify-center gap-5 lg:flex-col md:flex-row flex-wrap">
                 {characters.map((character) => (
                     <CharacterCard
                         key={character.id}
+                        id={character.id}
                         name={character.name}
                         image={character.image}
                         species={character.species}

@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 const CharacterCard = (props) => {
-    const href = "/character/[id]"
-    const as = `/character/${props.id}`
+    const href = "/characters/[id]"
+    const as = `/characters/${props.id}`
 
     return (
         <Link href={href} as={as}>

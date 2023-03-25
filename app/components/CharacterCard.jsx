@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 const CharacterCard = (props) => {
-    const href = "/characters/[id]"
-    const as = `/characters/${props.id}`
+    const href = "/characters/[id]";
+    const as = `/characters/${props.id}`;
 
     return (
         <Link href={href} as={as}>
@@ -13,8 +13,10 @@ const CharacterCard = (props) => {
                     alt="character-image"
                 ></img>
                 <div className="flex flex-col items-start justify-center h-20 pl-5">
-                    <h2 className="font-bold text-xl">{props.name}</h2>
-                    <span className="text-slate-500 text-sm pt-2">
+                    <h6 className="font-bold text-xl text-neutral-900">
+                        {props.name}
+                    </h6>
+                    <span className="text-neutral-600 text-sm pt-2">
                         {props.species}
                     </span>
                 </div>

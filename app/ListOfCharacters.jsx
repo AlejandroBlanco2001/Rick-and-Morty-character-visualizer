@@ -1,9 +1,12 @@
+"use client";
 import CharacterCard from "./components/UI/CharacterCard";
+import { useEffect, useState } from "react";
 
-const fetchCharacter = async () => {
+const fetchCharacter = async (page) => {
     const res = await fetch("https://rickandmortyapi.com/graphql", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        cache: "no-store",
         body: JSON.stringify({
             query: `
                     query GetCharacters($page: Int!, $name: String, $species: String, $gender: String, $status: String) {
@@ -23,7 +26,7 @@ const fetchCharacter = async () => {
                     }
                 `,
             variables: {
-                page: 1,
+                page: page,
                 name: "",
                 species: "",
                 gender: "",
@@ -35,12 +38,26 @@ const fetchCharacter = async () => {
     return data.data.characters.results;
 };
 
-export async function ListOfCharacters() {
-    const characters = await fetchCharacter();
+export function ListOfCharacters() {
+    const [characters, setCharacters] = useState([]);
+    const [page, setPage] = useState(1);
+    const [current, setCurrent] = useState(8);
 
+    useEffect(() => {
+        fetchCharacter(page).then((res) => {
+            setCharacters([...characters, ...res]);
+        });
+    }, [page]);
+
+    const loadMore = () => {
+        if (current % 20 === 0) {
+            setPage(page + 1);
+        }
+        setCurrent(current + 4);
+    };
     return (
         <div className="mt-10 flex flex-col justify-center items-center gap-5 lg:flex-row flex-wrap lg:px-40 lg:mt-0">
-            {characters.map((character) => (
+            {characters.slice(0, current).map((character) => (
                 <CharacterCard
                     key={character.id}
                     id={character.id}
@@ -49,6 +66,12 @@ export async function ListOfCharacters() {
                     species={character.species}
                 />
             ))}
+            <button
+                className="mt-10 flex justify-center items-center w-40 h-10 load-btn bg-[#F2F9FE] border rounded"
+                onClick={loadMore}
+            >
+                <span className="text-[#2196F3]">Load More</span>
+            </button>
         </div>
     );
 }

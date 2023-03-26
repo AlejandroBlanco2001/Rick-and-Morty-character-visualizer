@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
                         />
                     </header>
                     {children}
-                    <footer className="fixed left-0 bottom-0 flex justify-center items-center h-16 w-full">
+                    <footer className="mt-10 flex justify-center items-center h-16 w-full bg-white">
                         <p className="font-karla font-bold text-color-[#212121]">
                             Rick and Morty
                         </p>

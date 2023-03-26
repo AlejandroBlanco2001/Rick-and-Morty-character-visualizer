@@ -58,7 +58,6 @@ export default function FilterBar() {
                     />
                 </div>
             </div>
-
             <button
                 className="lg:invisible advance-filters mt-5 bg-[#E3F2FD] w-80 h-14"
                 onClick={openModal}

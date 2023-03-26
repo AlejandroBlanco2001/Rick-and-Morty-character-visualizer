@@ -1,35 +1,17 @@
 import InformationCard from "@/app/components/UI/InformationCard";
 import Icon from "@/app/components/Icons";
+import { queryCharacter } from "@/app/Utils";
 
 const fetchCharacter = async (id) => {
-    const query = `
-        query GetCharacter($id: ID!){
-            character(id: $id){
-                name,
-                status,
-                species,
-                type,
-                gender,
-                image,
-                origin {
-                    name,
-                },
-                location{
-                    name
-                }
-                episode{
-                    episode,
-                    name,
-                    air_date
-                }
-            }
-        }              
-    `;
-
     const res = await fetch("https://rickandmortyapi.com/graphql", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query, variables: { id: id } }),
+        body: JSON.stringify({
+            query: queryCharacter,
+            variables: {
+                id: id,
+            },
+        }),
     });
 
     const data = await res.json();

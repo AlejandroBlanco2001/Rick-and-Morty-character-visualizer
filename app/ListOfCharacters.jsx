@@ -1,36 +1,23 @@
 "use client";
 import CharacterCard from "./components/UI/CharacterCard";
 import { useEffect, useState } from "react";
+import { queryAllCharacters } from "./Utils";
+import { useGlobalContext } from "./Context/FilterContext";
 
-const fetchCharacter = async (page) => {
+const fetchCharacter = async (props) => {
+    const { page, name, species, gender, status } = props;
+
     const res = await fetch("https://rickandmortyapi.com/graphql", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        cache: "no-store",
         body: JSON.stringify({
-            query: `
-                    query GetCharacters($page: Int!, $name: String, $species: String, $gender: String, $status: String) {
-                        characters(page: $page, filter: {name: $name, species: $species, gender: $gender, status: $status}) {
-                            info {
-                                next
-                                prev
-                                pages
-                            }
-                            results{
-                                id
-                                name
-                                species
-                                image
-                            }
-                        }
-                    }
-                `,
+            query: queryAllCharacters,
             variables: {
                 page: page,
-                name: "",
-                species: "",
-                gender: "",
-                status: "",
+                name: name,
+                species: species,
+                gender: gender,
+                status: status,
             },
         }),
     });
@@ -42,12 +29,23 @@ export function ListOfCharacters() {
     const [characters, setCharacters] = useState([]);
     const [page, setPage] = useState(1);
     const [current, setCurrent] = useState(8);
+    const { state } = useGlobalContext();
+
+    const { name, species, gender, status } = state;
 
     useEffect(() => {
-        fetchCharacter(page).then((res) => {
+        fetchCharacter({ page: page, ...state }).then((res) => {
             setCharacters([...characters, ...res]);
         });
     }, [page]);
+
+    useEffect(() => {
+        setPage(1);
+        setCurrent(8);
+        fetchCharacter({ page: page, ...state }).then((res) => {
+            setCharacters(res);
+        });
+    }, [name, species, gender, status]);
 
     const loadMore = () => {
         if (current % 20 === 0) {
@@ -55,6 +53,7 @@ export function ListOfCharacters() {
         }
         setCurrent(current + 4);
     };
+
     return (
         <div className="mt-10 flex flex-col justify-center items-center gap-5 lg:flex-row flex-wrap lg:px-40 lg:mt-0">
             {characters.slice(0, current).map((character) => (

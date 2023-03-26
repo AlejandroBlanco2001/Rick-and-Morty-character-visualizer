@@ -10,8 +10,10 @@ const InputText = (params) => {
                     <Icon name="search" />
                 </div>
                 <input
+                    name="name"
                     className="border border-gray-300 rounded-lg w-80 h-14 pl-10"
                     placeholder={`Filter by ${params.placeholder}...`}
+                    onChange={params.onChange}
                 ></input>
             </div>
         </label>

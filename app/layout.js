@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FilterContextProvider } from "./contexts/FilterContext";
+import { GlobalContextProvider } from "./Context/FilterContext";
 import header from "../assets/navbar-rick-morty.png";
 import "../styles/globals.css";
 
@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
                 <title>Rick and Morty API</title>
             </head>
             <body>
-                <FilterContextProvider>
+                <GlobalContextProvider>
                     <header className="h-16 w-full pl-5 py-1">
                         <Image
                             className="h-10 w-10"
@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
                             Rick and Morty
                         </p>
                     </footer>
-                </FilterContextProvider>
+                </GlobalContextProvider>
             </body>
         </html>
     );

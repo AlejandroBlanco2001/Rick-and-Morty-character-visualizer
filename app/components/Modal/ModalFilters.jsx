@@ -1,10 +1,38 @@
 "use client";
 
 import InputSelection from "../UI/InputSelection";
+import { useGlobalContext } from "../../Context/FilterContext";
 import Icon from "../Icons";
 
 const ModalFilters = (params) => {
     const { isOpen, onClose } = params;
+    const { state, dispatch } = useGlobalContext();
+
+    const handleFilter = (e) => {
+        const { name, value } = e.target;
+        switch (name) {
+            case "species":
+                dispatch({
+                    type: "SET_SPECIES",
+                    payload: value,
+                });
+                break;
+            case "gender":
+                dispatch({
+                    type: "SET_GENDER",
+                    payload: value,
+                });
+                break;
+            case "status":
+                dispatch({
+                    type: "SET_STATUS",
+                    payload: value,
+                });
+                break;
+            default:
+                break;
+        }
+    };
 
     const handleClose = (event) => {
         event.preventDefault();
@@ -13,37 +41,35 @@ const ModalFilters = (params) => {
     };
 
     return isOpen ? (
-        <div className="fixed inset-0 flex items-center justify-center z-10">
-            <div className="bg-white">
+        <div className="fixed inset-0 flex items-center justify-center z-10 bg-[rgba(0,0,0,0.5)]">
+            <div className="flex flex-col px-4 pt-7 bg-white rounded w-5/6 h-96">
                 <div className="flex justify-between ">
-                    <h2>Filters</h2>
+                    <h2 className="text-xl">Filters</h2>
                     <a onClick={handleClose}>
                         <Icon name="cross" />
                     </a>
                 </div>
-                <div className="flex flex-col">
+                <div className="mt-5 flex flex-col gap-4">
                     <InputSelection
+                        name="species"
                         icon="dropdown"
                         placeholder="Species"
+                        onChange={handleFilter}
                         options={[
                             { value: "human", label: "Human" },
                             { value: "alien", label: "Alien" },
                             { value: "humanoid", label: "Humanoid" },
-                            {
-                                value: "mythological",
-                                label: "Mythological",
-                            },
+                            { value: "mythological", label: "Mythological" },
                             { value: "animal", label: "Animal" },
                             { value: "robot", label: "Robot" },
-                            {
-                                value: "poopybutthole",
-                                label: "Poopybutthole",
-                            },
+                            { value: "poopybutthole", label: "Poopybutthole" },
                         ]}
                     />
                     <InputSelection
+                        name="gender"
                         icon="dropdown"
                         placeholder="Gender"
+                        onChange={handleFilter}
                         options={[
                             { value: "female", label: "Female" },
                             { value: "male", label: "Male" },
@@ -52,8 +78,10 @@ const ModalFilters = (params) => {
                         ]}
                     />
                     <InputSelection
+                        name="status"
                         icon="dropdown"
                         placeholder="Status"
+                        onChange={handleFilter}
                         options={[
                             { value: "alive", label: "Alive" },
                             { value: "dead", label: "Dead" },
@@ -61,6 +89,9 @@ const ModalFilters = (params) => {
                         ]}
                     />
                 </div>
+                <button className="mt-10 text-[#2196F3] bg-[#E3F2FD] h-10 font-normal text-base tracking-wider">
+                    <span>APPLY</span>
+                </button>
             </div>
         </div>
     ) : null;

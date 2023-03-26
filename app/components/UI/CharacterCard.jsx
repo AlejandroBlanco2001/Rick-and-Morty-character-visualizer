@@ -5,10 +5,10 @@ const CharacterCard = (props) => {
     const as = `/characters/${props.id}`;
 
     return (
-        <Link href={href} as={as}>
-            <div className="characater-card flex w-80 overflow-hidden rounded-sm flex-col justify-center items-start">
+        <div className="characater-card flex w-80 overflow-hidden rounded-sm flex-col justify-center lg:w-100">
+            <Link href={href} as={as}>
                 <img
-                    className="h-5/8 w-full"
+                    className="h-5/8 w-full lg:h-60 lg:object-cover"
                     src={props.image}
                     alt="character-image"
                 ></img>
@@ -20,8 +20,8 @@ const CharacterCard = (props) => {
                         {props.species}
                     </span>
                 </div>
-            </div>
-        </Link>
+            </Link>
+        </div>
     );
 };
 

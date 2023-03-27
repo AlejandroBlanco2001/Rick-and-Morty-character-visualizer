@@ -11,29 +11,7 @@ const ModalFilters = (params) => {
     const { state, dispatch } = useGlobalContext();
 
     const handleFilter = (e) => {
-        const { name, value } = e.target;
-        switch (name) {
-            case "species":
-                dispatch({
-                    type: "SET_SPECIES",
-                    payload: value,
-                });
-                break;
-            case "gender":
-                dispatch({
-                    type: "SET_GENDER",
-                    payload: value,
-                });
-                break;
-            case "status":
-                dispatch({
-                    type: "SET_STATUS",
-                    payload: value,
-                });
-                break;
-            default:
-                break;
-        }
+        setData({ ...data, [e.target.name]: e.target.value });
     };
 
     const handleClose = (event) => {
@@ -44,10 +22,12 @@ const ModalFilters = (params) => {
 
     const applyFilters = (event) => {
         event.preventDefault();
+        event.stopPropagation();
         dispatch({
             type: "SET_FILTERS",
             payload: data,
         });
+        onClose() && onClose;
     };
 
     return isOpen ? (

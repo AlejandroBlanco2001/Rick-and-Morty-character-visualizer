@@ -1,6 +1,6 @@
 "use client";
 
-const InputSelection = (params) => {
+export default function InputSelection(params) {
     return (
         <label>
             <div className="relative">
@@ -24,6 +24,4 @@ const InputSelection = (params) => {
             </div>
         </label>
     );
-};
-
-export default InputSelection;
+}

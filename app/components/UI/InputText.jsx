@@ -2,7 +2,7 @@
 
 import Icon from "../Icons";
 
-const InputText = (params) => {
+export default function InputText(params) {
     return (
         <label>
             <div className="relative">
@@ -18,6 +18,4 @@ const InputText = (params) => {
             </div>
         </label>
     );
-};
-
-export default InputText;
+}

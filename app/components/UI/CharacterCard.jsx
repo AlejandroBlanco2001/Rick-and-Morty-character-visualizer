@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const CharacterCard = (props) => {
+export default function CharacterCard(props) {
     const href = "/characters/[id]";
     const as = `/characters/${props.id}`;
 
@@ -23,6 +23,4 @@ const CharacterCard = (props) => {
             </Link>
         </div>
     );
-};
-
-export default CharacterCard;
+}

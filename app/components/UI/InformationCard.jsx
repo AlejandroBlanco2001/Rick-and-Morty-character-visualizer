@@ -1,4 +1,4 @@
-const InformationCard = (props) => {
+export default function InformationCard(props) {
     return (
         <div className="flex flex-col">
             <h3 className="font-bold text-blue-black">{props.title}</h3>
@@ -9,6 +9,4 @@ const InformationCard = (props) => {
             <hr className="mt-2"></hr>
         </div>
     );
-};
-
-export default InformationCard;
+}

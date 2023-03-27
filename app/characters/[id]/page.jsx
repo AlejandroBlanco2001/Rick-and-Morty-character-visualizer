@@ -1,12 +1,11 @@
-import { CharacterInfo } from "./CharacterInfo"
+import CharacterInfo from "./CharacterInfo";
 
-export default function CharacterPage({ params }){
+export default function CharacterPage({ params }) {
+    const { id } = params;
 
-    const { id } = params
-
-    return(
+    return (
         <div>
-            <CharacterInfo id={id}/>
+            <CharacterInfo id={id} />
         </div>
-    )
+    );
 }

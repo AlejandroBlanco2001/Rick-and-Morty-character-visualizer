@@ -1,6 +1,6 @@
 import Image from "next/image";
 import logo from "../assets/logo-rick-morty.png";
-import { ListOfCharacters } from "./ListOfCharacters";
+import ListOfCharacters from "./ListOfCharacters";
 import FilterBar from "./components/UI/FilterBar";
 
 export default function HomePage() {

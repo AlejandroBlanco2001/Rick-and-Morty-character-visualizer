@@ -5,7 +5,7 @@ import { useGlobalContext } from "../../Context/FilterContext";
 import Icon from "../Icons";
 import { useState } from "react";
 
-const ModalFilters = (params) => {
+export default function ModalFilters(params) {
     const { isOpen, onClose } = params;
     const [data, setData] = useState({});
     const { state, dispatch } = useGlobalContext();
@@ -88,6 +88,4 @@ const ModalFilters = (params) => {
             </div>
         </div>
     ) : null;
-};
-
-export default ModalFilters;
+}

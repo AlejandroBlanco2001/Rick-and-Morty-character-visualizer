@@ -27,6 +27,7 @@ const fetchCharacter = async (props) => {
 
 export function ListOfCharacters() {
     const [characters, setCharacters] = useState([]);
+    const [reload, setReload] = useState(false);
     const [page, setPage] = useState(1);
     const [current, setCurrent] = useState(8);
     const { state } = useGlobalContext();
@@ -34,16 +35,20 @@ export function ListOfCharacters() {
     const { name, species, gender, status } = state;
 
     useEffect(() => {
-        fetchCharacter({ page: page, ...state }).then((res) => {
-            setCharacters([...characters, ...res]);
-        });
+        if (!reload) {
+            fetchCharacter({ page: page, ...state }).then((res) => {
+                setCharacters([...characters, ...res]);
+            });
+        }
     }, [page]);
 
     useEffect(() => {
+        setReload(true);
         setPage(1);
         setCurrent(8);
-        fetchCharacter({ page: page, ...state }).then((res) => {
-            setCharacters(res);
+        fetchCharacter({ page: 1, ...state }).then((res) => {
+            setCharacters(() => res);
+            setReload(false);
         });
     }, [name, species, gender, status]);
 

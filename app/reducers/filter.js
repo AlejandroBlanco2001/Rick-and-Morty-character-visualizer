@@ -27,6 +27,11 @@ export const filterReducer = (state, action) => {
                 ...state,
                 status: action.payload,
             };
+        case "SET_FILTERS":
+            return {
+                ...state,
+                ...action.payload,
+            };
         default:
             return state;
     }

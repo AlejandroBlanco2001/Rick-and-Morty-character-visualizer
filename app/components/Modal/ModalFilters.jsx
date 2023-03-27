@@ -3,9 +3,11 @@
 import InputSelection from "../UI/InputSelection";
 import { useGlobalContext } from "../../Context/FilterContext";
 import Icon from "../Icons";
+import { useState } from "react";
 
 const ModalFilters = (params) => {
     const { isOpen, onClose } = params;
+    const [data, setData] = useState({});
     const { state, dispatch } = useGlobalContext();
 
     const handleFilter = (e) => {
@@ -38,6 +40,14 @@ const ModalFilters = (params) => {
         event.preventDefault();
         event.stopPropagation();
         onClose() && onClose;
+    };
+
+    const applyFilters = (event) => {
+        event.preventDefault();
+        dispatch({
+            type: "SET_FILTERS",
+            payload: data,
+        });
     };
 
     return isOpen ? (
@@ -89,7 +99,10 @@ const ModalFilters = (params) => {
                         ]}
                     />
                 </div>
-                <button className="mt-10 text-[#2196F3] bg-[#E3F2FD] h-10 font-normal text-base tracking-wider">
+                <button
+                    onClick={applyFilters}
+                    className="mt-10 text-[#2196F3] bg-[#E3F2FD] h-10 font-normal text-base tracking-wider"
+                >
                     <span>APPLY</span>
                 </button>
             </div>

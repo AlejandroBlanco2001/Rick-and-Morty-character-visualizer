@@ -1,68 +1,44 @@
 "use client";
 import CharacterCard from "./components/UI/CharacterCard";
 import { useEffect, useState } from "react";
-import { queryAllCharacters } from "./Utils";
 import { useGlobalContext } from "./Context/FilterContext";
 import Loader from "./components/UI/Loader";
-
-const fetchCharacter = async (props) => {
-    const { page, name, species, gender, status } = props;
-
-    const res = await fetch("https://rickandmortyapi.com/graphql", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            query: queryAllCharacters,
-            variables: {
-                page: page,
-                name: name,
-                species: species,
-                gender: gender,
-                status: status,
-            },
-        }),
-    });
-    const data = await res.json();
-    return data.data.characters.results;
-};
+import { fetchCharacters } from "./services/characters";
 
 export default function ListOfCharacters() {
     const [characters, setCharacters] = useState([]);
-    const [reload, setReload] = useState(false);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
-    const [current, setCurrent] = useState(8);
+    const [current, setCurrent] = useState(visualViewport < 768 ? 2 : 8);
     const { state } = useGlobalContext();
 
     const { name, species, gender, status } = state;
 
     useEffect(() => {
-        if (!reload) {
-            setLoading(true);
-            fetchCharacter({ page: page, ...state }).then((res) => {
-                setCharacters([...characters, ...res]);
-                setLoading(false);
-            });
-        }
-    }, [page]);
-
-    useEffect(() => {
-        setReload(true);
         setLoading(true);
         setPage(1);
-        setCurrent(8);
-        fetchCharacter({ page: 1, ...state }).then((res) => {
+        visualViewport.width < 768 ? setCurrent(2) : setCurrent(8);
+        fetchCharacters({ page: 1, ...state }).then((res) => {
             setCharacters(() => res);
-            setReload(false);
             setLoading(false);
         });
     }, [name, species, gender, status]);
+
+    useEffect(() => {
+        setLoading(true);
+        fetchCharacters({ page: page, ...state }).then((res) => {
+            setCharacters((prevCharacters) => [...prevCharacters, ...res]);
+            setLoading(false);
+        });
+    }, [page, state]);
 
     const loadMore = () => {
         if (current % 20 === 0) {
             setPage(page + 1);
         }
-        setCurrent(current + 4);
+        visualViewport.width < 768
+            ? setCurrent(current + 2)
+            : setCurrent(current + 4);
     };
 
     return (

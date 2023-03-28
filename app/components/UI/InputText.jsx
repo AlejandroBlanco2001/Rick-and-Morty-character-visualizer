@@ -1,13 +1,9 @@
 "use client";
 
 import Icon from "../Icons";
-import { useGlobalContext } from "@/app/Context/FilterContext";
 
 export default function InputText(params) {
-    
-    const {onChange, placeholder} = params;
-
-    const {state} = useGlobalContext()
+    const { onChange, placeholder } = params;
 
     return (
         <label>
@@ -17,7 +13,7 @@ export default function InputText(params) {
                 </div>
                 <input
                     name="name"
-                    value={localStorage.getItem(name.toLowerCase()) || ""}
+                    value={localStorage.getItem("name") || ""}
                     className="border border-gray-300 rounded-lg w-80 h-14 pl-10"
                     placeholder={`Filter by ${placeholder}...`}
                     onChange={onChange}

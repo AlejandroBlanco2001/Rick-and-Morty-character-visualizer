@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
                 <GlobalContextProvider>
                     <header className="h-16 w-full pl-5 py-1">
                         <Image
-                            className="h-10 w-10"
+                            className="p-1 h-full w-14 lg:ml-40"
                             src={header}
                             alt="rick-morty-shadow-image"
                         />

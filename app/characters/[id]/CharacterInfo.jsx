@@ -2,44 +2,18 @@
 
 import InformationCard from "@/app/components/UI/InformationCard";
 import Icon from "@/app/components/Icons";
-import { queryCharacter } from "@/app/Utils";
 import { useEffect, useState } from "react";
 import Loader from "@/app/components/UI/Loader";
-
-const fetchCharacter = async (id) => {
-    const res = await fetch("https://rickandmortyapi.com/graphql", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            query: queryCharacter,
-            variables: {
-                id: id,
-            },
-        }),
-    });
-
-    const data = await res.json();
-
-    const temp = {
-        ...data.data.character,
-        episode: data.data.character.episode.slice(0, 4),
-    };
-
-    for (const key in temp) {
-        if (temp[key] === null || temp[key] === "") {
-            temp[key] = "Unkown";
-        }
-    }
-
-    return temp;
-};
+import { fetchCharacter } from "@/app/services/characters";
 
 export default function CharacterInfo(params) {
+    const { id } = params;
+
     const [character, setCharacter] = useState();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchCharacter(params.id).then((res) => {
+        fetchCharacter(id).then((res) => {
             setCharacter(res);
             setLoading(false);
         });

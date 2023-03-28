@@ -17,7 +17,7 @@ export default function InputText(params) {
                 </div>
                 <input
                     name="name"
-                    defaultValue={state.name || ""}
+                    value={localStorage.getItem(name.toLowerCase()) || ""}
                     className="border border-gray-300 rounded-lg w-80 h-14 pl-10"
                     placeholder={`Filter by ${placeholder}...`}
                     onChange={onChange}

@@ -7,12 +7,8 @@ export default function InputSelection(params) {
     const { name, onChange, placeholder, options } = params;
     const { state } = useGlobalContext();
 
-    const [value, setValue] = useState(() => {
-        return typeof window !== "undefined"
-            ? localStorage.getItem(name) || ""
-            : "";
-    });
-
+    const [value, setValue] = useState("");
+    
     useEffect(() => {
         const storedValue =
             typeof window !== "undefined"

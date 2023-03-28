@@ -8,20 +8,20 @@ export default function InputSelection(params) {
     const { state } = useGlobalContext();
 
     const [value, setValue] = useState(() => {
-        return typeof windows !== "undefined"
+        return typeof window !== "undefined"
             ? localStorage.getItem(name) || ""
             : "";
     });
 
     useEffect(() => {
         const storedValue =
-            typeof windows !== "undefined"
+            typeof window !== "undefined"
                 ? localStorage.getItem(name) || ""
                 : "";
         if (storedValue !== value) {
             setValue(storedValue);
         }
-    }, [name]);
+    }, []);
 
     const handleSelectChange = (event) => {
         const newValue = event.target.value;

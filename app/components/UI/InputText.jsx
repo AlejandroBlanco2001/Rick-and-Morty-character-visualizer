@@ -1,5 +1,4 @@
 "use client";
-
 import Icon from "../Icons";
 
 export default function InputText(params) {
@@ -13,7 +12,11 @@ export default function InputText(params) {
                 </div>
                 <input
                     name="name"
-                    value={localStorage.getItem("name") || ""}
+                    value={
+                        typeof windows === "undefined"
+                            ? ""
+                            : localStorage.getItem("name")
+                    }
                     className="border border-gray-300 rounded-lg w-80 h-14 pl-10"
                     placeholder={`Filter by ${placeholder}...`}
                     onChange={onChange}

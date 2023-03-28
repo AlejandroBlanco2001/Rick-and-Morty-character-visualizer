@@ -3,7 +3,6 @@ import CharacterCard from "./components/UI/CharacterCard";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "./Context/FilterContext";
 import Loader from "./components/UI/Loader";
-import Modal from "./components/Modal/Modal";
 import { fetchCharacters } from "./services/characters";
 
 export default function ListOfCharacters() {
@@ -11,7 +10,9 @@ export default function ListOfCharacters() {
     const [loading, setLoading] = useState(true);
     const [stateChange, setStateChange] = useState(true);
     const [page, setPage] = useState(1);
-    const [current, setCurrent] = useState(visualViewport < 768 ? 2 : 8);
+    const [current, setCurrent] = useState(
+        typeof windows === "undefined" ? 8 : visualViewport < 768 ? 2 : 8
+    );
     const { state } = useGlobalContext();
 
     const { name, species, gender, status } = state;
@@ -20,7 +21,9 @@ export default function ListOfCharacters() {
         setLoading(true);
         setPage(1);
         setStateChange(true);
-        visualViewport.width < 768 ? setCurrent(2) : setCurrent(8);
+        if (typeof window !== "undefined") {
+            visualViewport.width < 768 ? setCurrent(2) : setCurrent(8);
+        }
         fetchCharacters({ page: 1, ...state }).then((res) => {
             setCharacters(() => res);
             setLoading(false);
@@ -42,9 +45,11 @@ export default function ListOfCharacters() {
         if (current % 20 === 0) {
             setPage(page + 1);
         }
-        visualViewport.width < 768
-            ? setCurrent(current + 2)
-            : setCurrent(current + 4);
+        if (typeof window !== "undefined") {
+            visualViewport.width < 768
+                ? setCurrent(current + 2)
+                : setCurrent(current + 4);
+        }
     };
 
     return (

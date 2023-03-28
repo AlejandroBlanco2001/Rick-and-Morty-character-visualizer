@@ -113,7 +113,7 @@ export default function FilterBar() {
                     </span>
                 </div>
             </button>
-            <Modal isOpen={modalIsOpen} onClose={closeModal}>
+            <Modal isOpen={modalIsOpen} onClose={closeModal} placeholder="Filters">
                 <Filter></Filter>
             </Modal>
         </div>

@@ -2,13 +2,16 @@
 import CharacterCard from "./components/UI/CharacterCard";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "./Context/FilterContext";
-import Loader from "./components/UI/Loader";
 import { fetchCharacters } from "./Services/characters";
+import Loader from "./components/UI/Loader";
+import Modal from "./components/Modal/Modal";
 
 export default function ListOfCharacters() {
     const [characters, setCharacters] = useState([]);
     const [loading, setLoading] = useState(true);
     const [stateChange, setStateChange] = useState(true);
+
+    const [modalIsOpen, setIsOpen] = useState(false);
     const [page, setPage] = useState(1);
     const [current, setCurrent] = useState(
         typeof window === "undefined" ? 8 : visualViewport < 768 ? 2 : 8
@@ -16,6 +19,11 @@ export default function ListOfCharacters() {
     const { state } = useGlobalContext();
 
     const { name, species, gender, status } = state;
+
+    const openModal = () => setIsOpen(true);
+
+    const closeModal = () => setIsOpen(false);
+
 
     useEffect(() => {
         setLoading(true);
@@ -35,13 +43,17 @@ export default function ListOfCharacters() {
         if (stateChange) return;
         setLoading(true);
         fetchCharacters({ page: page, ...state }).then((res) => {
-            if (res.length === 0) return setLoading(false);
+            if (res.length === 0){
+                setIsOpen(true);
+               return setLoading(false);
+            } 
             setCharacters((prevCharacters) => [...prevCharacters, ...res]);
             setLoading(false);
         });
     }, [page]);
 
     const loadMore = () => {
+        if(current >= characters.length) return setIsOpen(true);
         if (current % 20 === 0) {
             setPage(page + 1);
         }
@@ -74,6 +86,11 @@ export default function ListOfCharacters() {
                 </button>
             </div>
             {loading ? <Loader /> : null}
+            {modalIsOpen ? <Modal isOpen={openModal} onClose={closeModal} placeholder="Error">
+                <div className="flex justify-center h-full items-center">
+                    <h1 className="text-2xl">No more characters available :( </h1>
+                </div>
+            </Modal> : null}
         </>
     );
 }

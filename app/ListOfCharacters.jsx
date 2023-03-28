@@ -77,6 +77,8 @@ export default function ListOfCharacters() {
                         species={character.species}
                     />
                 ))}
+            </div>
+            <div className="flex justify-center w-full">
                 <button
                     className="mt-10 flex justify-center items-center w-40 h-10 load-btn bg-[#F2F9FE] border rounded"
                     onClick={loadMore}

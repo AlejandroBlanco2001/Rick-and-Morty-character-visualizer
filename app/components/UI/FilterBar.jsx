@@ -23,24 +23,28 @@ export default function FilterBar() {
                     type: "SET_NAME",
                     payload: value,
                 });
+                localStorage.setItem('name', value)
                 break;
             case "species":
                 dispatch({
                     type: "SET_SPECIES",
                     payload: value,
                 });
+                localStorage.setItem('species', value)
                 break;
             case "gender":
                 dispatch({
                     type: "SET_GENDER",
                     payload: value,
                 });
+                localStorage.setItem('gender', value)
                 break;
             case "status":
                 dispatch({
                     type: "SET_STATUS",
                     payload: value,
                 });
+                localStorage.setItem('status', value)
                 break;
             default:
                 break;

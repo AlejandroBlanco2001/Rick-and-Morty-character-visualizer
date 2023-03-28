@@ -1,8 +1,14 @@
 "use client";
 
 import Icon from "../Icons";
+import { useGlobalContext } from "@/app/Context/FilterContext";
 
 export default function InputText(params) {
+    
+    const {onChange, placeholder} = params;
+
+    const {state} = useGlobalContext()
+
     return (
         <label>
             <div className="relative">
@@ -11,9 +17,10 @@ export default function InputText(params) {
                 </div>
                 <input
                     name="name"
+                    defaultValue={state.name || ""}
                     className="border border-gray-300 rounded-lg w-80 h-14 pl-10"
-                    placeholder={`Filter by ${params.placeholder}...`}
-                    onChange={params.onChange}
+                    placeholder={`Filter by ${placeholder}...`}
+                    onChange={onChange}
                 ></input>
             </div>
         </label>

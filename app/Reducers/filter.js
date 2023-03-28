@@ -1,9 +1,18 @@
 export const INITIAL_STATE = {
-    name: typeof window !== "undefined" ? localStorage.getItem("name") : "",
+    name:
+        typeof window !== "undefined" ? localStorage.getItem("name") || "" : "",
     species:
-        typeof window !== "undefined" ? localStorage.getItem("species") : "",
-    gender: typeof window !== "undefined" ? localStorage.getItem("gender") : "",
-    status: typeof window !== "undefined" ? localStorage.getItem("status") : "",
+        typeof window !== "undefined"
+            ? localStorage.getItem("species") || ""
+            : "",
+    gender:
+        typeof window !== "undefined"
+            ? localStorage.getItem("gender") || ""
+            : "",
+    status:
+        typeof window !== "undefined"
+            ? localStorage.getItem("status") || ""
+            : "",
 };
 
 export const filterReducer = (state, action) => {

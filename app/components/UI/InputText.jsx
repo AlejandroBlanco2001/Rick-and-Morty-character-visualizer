@@ -12,7 +12,7 @@ export default function InputText(params) {
                 </div>
                 <input
                     name="name"
-                    value={
+                    defaultValue={
                         typeof window !== "undefined"
                             ? localStorage.getItem("name")
                             : ""

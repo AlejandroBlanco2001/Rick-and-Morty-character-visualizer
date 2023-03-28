@@ -17,6 +17,7 @@ export default function FilterBar() {
     const closeModal = () => setIsOpen(false);
 
     const handleFilter = (e) => {
+        console.log(e);
         const { name, value } = e.target;
         switch (name) {
             case "name":

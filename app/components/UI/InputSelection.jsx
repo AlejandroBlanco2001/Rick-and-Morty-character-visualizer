@@ -8,11 +8,16 @@ export default function InputSelection(params) {
     const { state } = useGlobalContext();
 
     const [value, setValue] = useState(() => {
-        return localStorage.getItem(name) || "";
+        return typeof windows !== "undefined"
+            ? localStorage.getItem(name) || ""
+            : "";
     });
 
     useEffect(() => {
-        const storedValue = localStorage.getItem(name) || "";
+        const storedValue =
+            typeof windows !== "undefined"
+                ? localStorage.getItem(name) || ""
+                : "";
         if (storedValue !== value) {
             setValue(storedValue);
         }
@@ -21,9 +26,11 @@ export default function InputSelection(params) {
     const handleSelectChange = (event) => {
         const newValue = event.target.value;
         setValue(newValue);
-        localStorage.setItem(name, newValue);
-        if (onChange) {
-            onChange(event);
+        if (typeof window !== "undefined") {
+            localStorage.setItem(name, newValue);
+            if (onChange) {
+                onChange(event);
+            }
         }
     };
 
@@ -32,11 +39,7 @@ export default function InputSelection(params) {
             <div className="relative">
                 <select
                     name={name}
-                    defaultValue={
-                        typeof window !== "undefined"
-                            ? localStorage.getItem(name) || state[name] || ""
-                            : ""
-                    }
+                    value={value}
                     className="border text-[#a0a7b2] border-gray-300 rounded-lg w-full h-14 lg:w-80 lg:h-14 lg:pl-5"
                     onChange={handleSelectChange}
                 >

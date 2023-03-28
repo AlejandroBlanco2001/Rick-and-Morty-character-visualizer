@@ -13,9 +13,9 @@ export default function InputText(params) {
                 <input
                     name="name"
                     value={
-                        typeof windows === "undefined"
-                            ? ""
-                            : localStorage.getItem("name")
+                        typeof window !== "undefined"
+                            ? localStorage.getItem("name")
+                            : ""
                     }
                     className="border border-gray-300 rounded-lg w-80 h-14 pl-10"
                     placeholder={`Filter by ${placeholder}...`}

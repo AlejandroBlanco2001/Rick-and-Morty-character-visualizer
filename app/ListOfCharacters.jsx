@@ -3,7 +3,7 @@ import CharacterCard from "./components/UI/CharacterCard";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "./Context/FilterContext";
 import Loader from "./components/UI/Loader";
-import { fetchCharacters } from "./services/characters";
+import { fetchCharacters } from "./Services/characters";
 
 export default function ListOfCharacters() {
     const [characters, setCharacters] = useState([]);
@@ -11,7 +11,7 @@ export default function ListOfCharacters() {
     const [stateChange, setStateChange] = useState(true);
     const [page, setPage] = useState(1);
     const [current, setCurrent] = useState(
-        typeof windows === "undefined" ? 8 : visualViewport < 768 ? 2 : 8
+        typeof window === "undefined" ? 8 : visualViewport < 768 ? 2 : 8
     );
     const { state } = useGlobalContext();
 

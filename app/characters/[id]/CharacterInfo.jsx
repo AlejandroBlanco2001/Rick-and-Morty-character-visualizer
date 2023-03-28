@@ -1,10 +1,10 @@
 "use client";
 
-import InformationCard from "@/app/components/UI/InformationCard";
-import Icon from "@/app/components/Icons";
+import InformationCard from "../../components/UI/InformationCard";
+import Icon from "../../components/Icons";
 import { useEffect, useState } from "react";
-import Loader from "@/app/components/UI/Loader";
-import { fetchCharacter } from "@/app/services/characters";
+import Loader from "../../components/UI/Loader";
+import { fetchCharacter } from "../../Services/characters";
 
 export default function CharacterInfo(params) {
     const { id } = params;

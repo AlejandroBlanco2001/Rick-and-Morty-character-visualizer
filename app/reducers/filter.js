@@ -1,8 +1,9 @@
 export const INITIAL_STATE = {
-    name: typeof window !== 'undefined' ? localStorage.getItem("name") : "",
-    species: typeof window !== 'undefined' ? localStorage.getItem("species") : "",
-    gender: typeof window !== 'undefined' ? localStorage.getItem("gender") : "",
-    status: typeof window !== 'undefined' ? localStorage.getItem("status") : "",
+    name: typeof window !== "undefined" ? localStorage.getItem("name") : "",
+    species:
+        typeof window !== "undefined" ? localStorage.getItem("species") : "",
+    gender: typeof window !== "undefined" ? localStorage.getItem("gender") : "",
+    status: typeof window !== "undefined" ? localStorage.getItem("status") : "",
 };
 
 export const filterReducer = (state, action) => {
@@ -20,21 +21,23 @@ export const filterReducer = (state, action) => {
                 species: action.payload,
             };
         case "SET_GENDER":
-            localStorage.setItem("gender", action.payload)
+            localStorage.setItem("gender", action.payload);
             return {
                 ...state,
                 gender: action.payload,
             };
         case "SET_STATUS":
-            localStorage.setItem("status", action.payload)
+            localStorage.setItem("status", action.payload);
             return {
                 ...state,
                 status: action.payload,
             };
         case "SET_FILTERS":
-            localStorage.setItem("filters", action.payload.name);
+            localStorage.setItem("name", action.payload.name || "");
+            localStorage.setItem("species", action.payload.species || "");
+            localStorage.setItem("gender", action.payload.gender || "");
+            localStorage.setItem("status", action.payload.status || "");
             return {
-                ...state,
                 ...action.payload,
             };
         default:

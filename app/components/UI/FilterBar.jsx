@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import ModalFilters from "../Modal/ModalFilters";
+import Modal from "../Modal/Modal";
 import Icon from "../Icons";
 import InputText from "./InputText";
 import InputSelection from "./InputSelection";
 import { useGlobalContext } from "../../Context/FilterContext";
+import Filter from "../Modal/Filter";
 
 export default function FilterBar() {
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -23,28 +24,24 @@ export default function FilterBar() {
                     type: "SET_NAME",
                     payload: value,
                 });
-                localStorage.setItem("name", value);
                 break;
             case "species":
                 dispatch({
                     type: "SET_SPECIES",
                     payload: value,
                 });
-                localStorage.setItem("species", value);
                 break;
             case "gender":
                 dispatch({
                     type: "SET_GENDER",
                     payload: value,
                 });
-                localStorage.setItem("gender", value);
                 break;
             case "status":
                 dispatch({
                     type: "SET_STATUS",
                     payload: value,
                 });
-                localStorage.setItem("status", value);
                 break;
             default:
                 break;
@@ -115,7 +112,9 @@ export default function FilterBar() {
                     </span>
                 </div>
             </button>
-            <ModalFilters isOpen={modalIsOpen} onClose={closeModal} />
+            <Modal isOpen={modalIsOpen} onClose={closeModal}>
+                <Filter></Filter>
+            </Modal>
         </div>
     );
 }

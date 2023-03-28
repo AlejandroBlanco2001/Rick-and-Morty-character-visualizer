@@ -3,11 +3,13 @@ import CharacterCard from "./components/UI/CharacterCard";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "./Context/FilterContext";
 import Loader from "./components/UI/Loader";
+import Modal from "./components/Modal/Modal";
 import { fetchCharacters } from "./services/characters";
 
 export default function ListOfCharacters() {
     const [characters, setCharacters] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [stateChange, setStateChange] = useState(true);
     const [page, setPage] = useState(1);
     const [current, setCurrent] = useState(visualViewport < 768 ? 2 : 8);
     const { state } = useGlobalContext();
@@ -17,20 +19,24 @@ export default function ListOfCharacters() {
     useEffect(() => {
         setLoading(true);
         setPage(1);
+        setStateChange(true);
         visualViewport.width < 768 ? setCurrent(2) : setCurrent(8);
         fetchCharacters({ page: 1, ...state }).then((res) => {
             setCharacters(() => res);
             setLoading(false);
+            setStateChange(false);
         });
     }, [name, species, gender, status]);
 
     useEffect(() => {
+        if (stateChange) return;
         setLoading(true);
         fetchCharacters({ page: page, ...state }).then((res) => {
+            if (res.length === 0) return setLoading(false);
             setCharacters((prevCharacters) => [...prevCharacters, ...res]);
             setLoading(false);
         });
-    }, [page, state]);
+    }, [page]);
 
     const loadMore = () => {
         if (current % 20 === 0) {

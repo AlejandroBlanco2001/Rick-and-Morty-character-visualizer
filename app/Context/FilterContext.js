@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useReducer } from "react";
-import { filterReducer, INITIAL_STATE } from "../Reducers/filter";
+import { filterReducer, INITIAL_STATE } from "../reducers/filter";
 
 const GlobalContext = createContext(INITIAL_STATE);
 

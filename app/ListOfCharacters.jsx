@@ -53,7 +53,6 @@ export default function ListOfCharacters() {
     }, [page]);
 
     const loadMore = () => {
-        if(current >= characters.length) return setIsOpen(true);
         if (current % 20 === 0) {
             setPage(page + 1);
         }
